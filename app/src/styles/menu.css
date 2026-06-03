@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+.menu-section {
+  background: #faf7f2;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* HERO */
+
+.menu-hero {
+  position: relative;
+  height: 380px;
+
+  background: url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1600&auto=format&fit=crop")
+    center/cover no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.menu-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.menu-hero-content h1 {
+  font-size: 4rem;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 1rem;
+}
+
+.menu-hero-content p {
+  line-height: 1.8;
+  color: #ddd;
+}
+
+/* FILTERS */
+
+.menu-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  flex-wrap: wrap;
+
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  padding: 0 1rem;
+}
+
+.menu-filters button {
+  border: none;
+  background: #d4a373;
+
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+/* .menu-filters button:hover {
+  background: #d4a373;
+  color: white;
+} */
+
+.active-filter {
+  background: #c08b5c !important;
+  color: white;
+}
+
+/* MENU GRID */
+
+.menu-grid {
+  width: 90%;
+  max-width: 1200px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(320px, 1fr)
+  );
+
+  gap: 2rem;
+}
+
+.menu-card {
+  background: white;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  display: flex;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  transition: 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+}
+
+.menu-card img {
+  width: 110px;
+  height: 110px;
+
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.menu-info {
+  flex: 1;
+}
+
+.menu-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-bottom: 0.7rem;
+}
+
+.menu-top h3 {
+  font-size: 1.2rem;
+  color: #1f1f1f;
+}
+
+.menu-top span {
+  color: #c08b5c;
+  font-weight: 600;
+}
+
+.menu-info p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tags small {
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.vegan {
+  background: #e8f7e8;
+  color: green;
+}
+
+.special {
+  background: #fff1e2;
+  color: #c08b5c;
+}
+
+.new {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* DAILY SPECIAL */
+
+.daily-special {
+  position: relative;
+
+  width: 90%;
+  max-width: 1200px;
+
+  margin: 5rem auto;
+
+  height: 300px;
+
+  border-radius: 30px;
+  overflow: hidden;
+
+  background: url("https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1600&auto=format&fit=crop")
+    center/cover no-repeat;
+
+  display: flex;
+  align-items: center;
+}
+
+.special-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.special-content {
+  position: relative;
+  z-index: 2;
+
+  color: white;
+  padding-left: 4rem;
+
+  max-width: 500px;
+}
+
+.special-content h2 {
+  font-size: 3rem;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 1rem;
+}
+
+.special-content p {
+  line-height: 1.8;
+  color: #ddd;
+  margin-bottom: 2rem;
+}
+
+.special-content button {
+  border: none;
+  background: #c08b5c;
+
+  color: white;
+
+  padding: 1rem 2rem;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .menu-hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .menu-card {
+    flex-direction: column;
+  }
+
+  .menu-card img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .special-content {
+    padding: 2rem;
+  }
+
+  .special-content h2 {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,429 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem;
+  background: url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1978&auto=format&fit=crop")
+    center/cover no-repeat;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+
+  max-width: 650px;
+  margin-top: 5rem;
+}
+
+.hero-content h1 {
+  font-size: 5rem;
+  line-height: 1.05;
+  color: white;
+
+  font-family: "Playfair Display", serif;
+  margin-bottom: 1.5rem;
+}
+
+.hero-content p {
+  color: #f1f1f1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.menu-btn {
+  background: #d4a373;
+  border: none;
+  color: white;
+
+  padding: 1rem 2rem;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+  background: #b07d4f;
+}
+
+.outline-btn {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+
+  padding: 1rem 2rem;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: 0.3s ease;
+}
+
+.outline-btn:hover {
+  background: white;
+  color: black;
+}
+
+.info-bar {
+  position: relative;
+  z-index: 10;
+
+  margin-top: 6rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 2rem;
+
+  background: rgba(34, 22, 15, 0.85);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  padding: 2rem;
+  border-radius: 24px;
+}
+
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  color: white;
+  flex: 1;
+}
+
+.info-card svg {
+  color: #d4a373;
+}
+
+.info-card h4 {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: #c9c9c9;
+}
+
+.info-card p {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.info-card span {
+  font-size: 0.85rem;
+  color: #d4a373;
+  cursor: pointer;
+}
+
+.divider {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+  .hero-content h1 {
+    font-size: 3.8rem;
+  }
+
+  .info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .menu-btn,
+  .outline-btn {
+    width: 100%;
+  }
+
+  .info-bar {
+    margin-top: 4rem;
+  }
+}
+
+/* MENU */
+.featured-menu {
+  padding: 6rem 8%;
+  background: #faf7f2;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  font-family: "Playfair Display", serif;
+  color: #1f1f1f;
+
+  margin-bottom: 1rem;
+}
+
+.section-title p {
+  color: #777;
+  font-size: 1rem;
+}
+
+.featured-grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(320px, 1fr)
+  );
+
+  gap: 2rem;
+}
+
+.featured-card {
+  background: white;
+
+  border-radius: 24px;
+  overflow: hidden;
+
+  transition: 0.3s ease;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.featured-card:hover {
+  transform: translateY(-8px);
+}
+
+.featured-card img {
+  width: 100%;
+  height: 260px;
+
+  object-fit: cover;
+}
+
+.featured-content {
+  padding: 1.5rem;
+}
+
+.featured-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
+}
+
+.featured-top h3 {
+  font-size: 1.3rem;
+  color: #1f1f1f;
+}
+
+.featured-top span {
+  color: #c08b5c;
+  font-weight: 600;
+}
+
+.featured-content p {
+  color: #666;
+  line-height: 1.7;
+
+  margin-bottom: 1rem;
+}
+
+.featured-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.featured-tags small {
+  padding: 0.4rem 0.8rem;
+
+  border-radius: 999px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.vegan {
+  background: #e8f7e8;
+  color: green;
+}
+
+.special {
+  background: #fff1e2;
+  color: #c08b5c;
+}
+
+.new {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.center-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.viewMenuBtn {
+  background: transparent;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+
+  padding: 0.9rem 1.8rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  color: #1f1f1f;
+  cursor: pointer;
+
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* HOVER */
+
+.viewMenuBtn:hover {
+  background-color: #d4a373;
+  color: white;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 25px rgba(212, 163, 115, 0.3);
+}
+
+/* CLICK EFFECT */
+
+.viewMenuBtn:active {
+  transform: scale(0.98);
+}
+
+/* GALLERY */
+.moments-section{
+  padding: 5rem 8%;
+  text-align: center;
+  background: #faf7f2;
+}
+
+.moments-section h2{
+  font-size: 2.5rem;
+  font-family: "Playfair Display", serif;
+  color: #1f1f1f;
+
+  margin-bottom: 1rem;
+}
+
+.moments-section p{
+  color: #666;
+  margin-bottom: 2.5rem;
+}
+
+.moments-gallery{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+
+.moment-card{
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.moment-card img{
+  width: 100%;
+  height: 300px;
+
+  object-fit: cover;
+
+  transition: .4s ease;
+}
+
+.moment-card:hover img{
+  transform: scale(1.08);
+}
+
+.view-photos-btn{
+  background: transparent;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+
+  padding: 0.9rem 1.8rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  color: #1f1f1f;
+  cursor: pointer;
+
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.view-photos-btn:hover{
+  background-color: #d4a373;
+  color: white;
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 10px 25px rgba(212, 163, 115, 0.3);
+  border: none;
+}
+
+.view-photos-btn:active {
+  transform: scale(0.98);
+}

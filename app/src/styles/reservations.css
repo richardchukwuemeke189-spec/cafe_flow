@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+.reservation-section {
+  background: #faf7f2;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+}
+
+/* HERO */
+
+.reservation-hero {
+  position: relative;
+  height: 370px;
+
+  background: url("https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1600&auto=format&fit=crop")
+    center/cover no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reservation-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.reservation-hero-content {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+  color: white;
+}
+
+.reservation-hero-content h1 {
+  font-size: 4rem;
+  font-family: "Playfair Display", serif;
+
+  margin-bottom: 1rem;
+}
+
+.reservation-hero-content p {
+  color: #ddd;
+  font-size: 1.05rem;
+}
+
+/* MAIN CONTAINER */
+
+.reservation-container {
+  width: 92%;
+  max-width: 1200px;
+
+  margin: -80px auto 4rem auto;
+
+  background: white;
+  border-radius: 28px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+
+  position: relative;
+  z-index: 10;
+}
+
+/* FORM */
+
+.reservation-form,
+.contact-info {
+  padding: 3rem;
+}
+
+.reservation-form h2,
+.contact-info h2 {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: #1f1f1f;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  padding: 1rem;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  font-size: 0.95rem;
+  outline: none;
+
+  transition: 0.3s ease;
+  color: black;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #c08b5c;
+}
+
+select option{
+    color: black;
+}
+
+.input-group textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+.date-time {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+
+  border: none;
+  background: #2a140d;
+  color: white;
+
+  padding: 1rem;
+  border-radius: 14px;
+
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #c08b5c;
+}
+
+/* CONTACT INFO */
+
+.contact-item {
+  display: flex;
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+
+.contact-item i {
+  font-size: 1.4rem;
+  color: #c08b5c;
+}
+
+.contact-item h4 {
+  margin-bottom: 0.4rem;
+  color: #1f1f1f;
+}
+
+.contact-item p {
+  color: #666;
+  line-height: 1.7;
+}
+
+.contact-item span {
+  color: #c08b5c;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* MAP */
+
+.map-container {
+  margin-top: 2rem;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+}
+
+/* FEATURES */
+
+.reservation-features {
+  width: 92%;
+  max-width: 1200px;
+
+  margin: auto;
+  padding-bottom: 5rem;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+
+  gap: 1.5rem;
+}
+
+.feature-card {
+  display: flex;
+  gap: 1rem;
+
+  background: white;
+  padding: 1.5rem;
+
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.feature-card i {
+  font-size: 1.8rem;
+  color: #c08b5c;
+}
+
+.feature-card h4 {
+  margin-bottom: 0.5rem;
+  color: #1f1f1f;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .reservation-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .reservation-hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .reservation-form,
+  .contact-info {
+    padding: 2rem;
+  }
+
+  .date-time {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* success message */
+
+.form-message{
+  margin: 1rem 0;
+
+  padding: .8rem;
+
+  border-radius: 8px;
+
+  background: #f5f5f5;
+
+  color: #3d2a1d;
+
+  font-weight: 500;
+}
+
+.submit-btn:disabled{
+  opacity: .7;
+  cursor: not-allowed;
+}

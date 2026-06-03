@@ -1,0 +1,44 @@
+.back-to-top{
+  position: fixed;
+
+  bottom: 30px;
+  right: 30px;
+
+  width: 55px;
+  height: 55px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #b67b4d,
+    #d4a373
+  );
+
+  color: white;
+
+  font-size: 1.2rem;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  z-index: 999;
+
+  transition: 0.3s ease;
+}
+
+.back-to-top:hover{
+  transform: translateY(-5px);
+
+  background: linear-gradient(
+    135deg,
+    #d4a373,
+    #e6b98c
+  );
+}
