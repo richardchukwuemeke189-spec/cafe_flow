@@ -5,6 +5,7 @@ import menuData from "../data/menuData.js";
 import { Link } from "react-router-dom";
 import galleryData from "../data/galleryData.js";
 import Footer from "../components/Footer.jsx";
+import test from "../assets/coffee_logo.jfif";
 
 function Homepage(){
 
@@ -14,6 +15,7 @@ function Homepage(){
     return(
         <>
             <section>
+                <img src={test} alt="" />
                 <div className="hero">
                 <div className="hero-overlay"></div>
 
