@@ -3,10 +3,9 @@
 }
 
 .navbar {
-  /* position: fixed; */
+  position: fixed;
   background: rgba(0, 0, 0, 0.188);
   backdrop-filter: blur(12px);  
-  -webkit-backdrop-filter: blur(5px);
   z-index: 1000;
   justify-content: space-between;
   width: 100vw;
