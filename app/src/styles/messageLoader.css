@@ -12,6 +12,7 @@
     radial-gradient(farthest-side at top   ,var(--_g)) 100% calc(50% + var(--s)/16)/25% 25%;
   background-repeat: no-repeat;
   animation: l14 1s infinite;
+  justify-self: center;
 }
 @keyframes l14 {
     25%  {background-position:0    50%,50% 0,50% 100%,100% 0,100% 100%}
