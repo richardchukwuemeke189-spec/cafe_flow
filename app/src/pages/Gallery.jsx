@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../styles/gallery.css";
+import "../styles/navbar.css";
 import galleryData from "../data/galleryData";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const filters = [
   "All",
@@ -27,6 +29,7 @@ function Gallery() {
 
   return (
     <div>
+      <Navbar />
       <section className="gallery-section">
         {/* HERO */}
         <div className="gallery-hero">

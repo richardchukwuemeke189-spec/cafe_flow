@@ -1,8 +1,10 @@
 import "../styles/menu.css";
+import "../styles/navbar.css";
 import { useState, useEffect } from "react";
 import menuData from "../data/menuData";
 import BackToTop from "../components/BackToTop";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const categories = [
   "All",
@@ -24,6 +26,7 @@ function Menu() {
 
   return (
     <div>
+      <Navbar />
       <section className="menu-section">
         {/* HERO */}
         <div className="menu-hero">

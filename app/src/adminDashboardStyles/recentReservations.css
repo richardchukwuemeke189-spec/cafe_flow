@@ -1,0 +1,79 @@
+.reservation-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.panel-header button {
+  border: none;
+  background: #f4f4f4;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+}
+
+.reservation-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reservation-item img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.reservation-info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.reservation-info *{
+    color: black;
+}
+
+.reservation-info h4 {
+  font-size: 14px;
+}
+
+.reservation-info p {
+  color: #777;
+  font-size: 12px;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.pending {
+  background: #fff5db;
+  color: #c89200;
+}
+
+.confirmed {
+  background: #e8f8ee;
+  color: #19a34a;
+}
+
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  font-size: 15px;
+  font-weight: 500;
+}

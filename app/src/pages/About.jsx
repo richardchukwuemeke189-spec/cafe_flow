@@ -1,11 +1,14 @@
 import "../styles/about.css";
+import "../styles/navbar.css";
 import aboutData from "../data/about";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 function About() {
   return (
     <div>
+        <Navbar />
         <section className="about-section" style={{marginBottom:'140px'}}>
         {/* HERO */}
         <div className="about-hero">

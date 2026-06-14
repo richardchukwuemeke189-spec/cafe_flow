@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "../styles/reservations.css";
+import "../styles/messageLoader.css";
+import "../styles/navbar.css";
 import Footer from "../components/Footer";
 import axios from "axios";
 import api from "../api/api";
 import { toast } from "react-toastify";
-import "../styles/messageLoader.css";
+import Navbar from "../components/Navbar";
 
 
 function Reservations() {
@@ -64,6 +66,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div>
+      <Navbar />
       <section className="reservation-section">
         {/* HERO */}
         <div className="reservation-hero">

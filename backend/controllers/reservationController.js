@@ -1,5 +1,6 @@
 import supabase from "../config/supabaseClient.js";
 import transporter from "../services/mailService.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 export const createReservation = async (req, res) => {
   try {
@@ -108,5 +109,60 @@ export const createReservation = async (req, res) => {
       success: false,
       message: "Reservation failed",
     });
+  }
+};
+
+// ===================update and reply to user=================
+export const updateReservationStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    // 1. Update reservation
+    const { data: reservation, error } = await supabase
+      .from("reservations")
+      .update({ status })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // 2. Decide message
+    let emailText = "";
+
+    if (status === "Confirmed") {
+      emailText = `Hello ${reservation.name},
+
+Good news 🎉
+
+Your reservation has been ACCEPTED.
+
+We look forward to serving you at our café.
+
+Thank you for choosing us.`;
+    }
+
+    if (status === "Cancelled") {
+      emailText = `Hello ${reservation.name},
+
+We are sorry 😔
+
+Your reservation has been CANCELLED.
+
+Please feel free to book again anytime.`;
+    }
+
+    // 3. Send email
+    await sendEmail({
+      to: reservation.email,
+      subject: "Reservation Update",
+      text: emailText,
+    });
+
+    return res.json({ success: true, reservation });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Failed to update reservation" });
   }
 };

@@ -9,6 +9,13 @@ import About from './pages/About';
 import Gallery from './pages/Gallery';
 import Reviews from './pages/Reviews';
 import Contact from './pages/Contact';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
+
+// admin imports
+import ReservationsPage from './adminPages/ReservationsPage';
+import MessagesPage from './adminPages/MessagesPage';
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,7 +25,7 @@ function App() {
     <>
       <Router>
         <div>
-          <Navbar />
+          {/* <Navbar /> */}
           <ToastContainer
               position="top-right"
               autoClose={4000}
@@ -38,6 +45,12 @@ function App() {
             <Route path='/gallery' element={<Gallery />} />
             <Route path='/reviews' element={<Reviews />} />
             <Route path='/contact' element={<Contact />} />
+            <Route path='/admin/login' element={<AdminLogin />} />
+            <Route path='/admin/dashboard' element={<AdminDashboard />} />
+
+            {/* admin routes */}
+            <Route path='/admin/reservations' element={<ReservationsPage />} />
+            <Route path='/admin/messages' element={<MessagesPage /> }/>
           </Routes>
         </div>
       </Router>

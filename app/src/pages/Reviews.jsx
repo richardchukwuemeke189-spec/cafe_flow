@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "../styles/reviews.css";
+import "../styles/navbar.css";
 import Footer from "../components/Footer";
-
 import reviewData from "../data/reviewData";
+import Navbar from "../components/Navbar";
 
 function Reviews() {
   const [currentIndex, setCurrentIndex] =
@@ -43,6 +44,7 @@ function Reviews() {
 
   return (
     <div>
+      <Navbar />
       <section className="reviews-section">
         {/* HERO */}
         <div className="reviews-hero">

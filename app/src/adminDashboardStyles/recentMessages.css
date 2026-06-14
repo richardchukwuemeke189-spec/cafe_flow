@@ -1,0 +1,52 @@
+.message-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+.message-item {
+  display: flex;
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.message-content {
+  margin-left: 12px;
+}
+
+.message-content h4 {
+  font-size: 14px;
+  color: black;
+}
+
+.message-content span {
+  font-size: 12px;
+  color: #999;
+}
+
+.message-content p {
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  font-size: 15px;
+  font-weight: 500;
+}

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../styles/contact.css";
+import "../styles/messageLoader.css";
+import "../styles/navbar.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "../styles/messageLoader.css";
+import Navbar from "../components/Navbar";
 
 function Contact() {
 
@@ -56,6 +58,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div>
+        <Navbar />
         <section className="contact-page">
         <div className="contact-overlay"></div>
 

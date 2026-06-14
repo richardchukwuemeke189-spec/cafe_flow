@@ -1,10 +1,12 @@
 import React from "react";
 import "../styles/home.css";
+import "../styles/navbar.css"
 import info_card from "../data/infoCard.js";
 import menuData from "../data/menuData.js";
 import { Link } from "react-router-dom";
 import galleryData from "../data/galleryData.js";
 import Footer from "../components/Footer.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 function Homepage(){
 
@@ -14,6 +16,7 @@ function Homepage(){
     return(
         <>
             <section>
+                <Navbar/>
                 <div className="hero">
                 <div className="hero-overlay"></div>
 

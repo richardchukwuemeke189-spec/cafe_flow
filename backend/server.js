@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import contactRoutes from "./routes/contactRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use(
   "/api/reservations",
   reservationRoutes
 );
+
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("Coffee Shop API Running");

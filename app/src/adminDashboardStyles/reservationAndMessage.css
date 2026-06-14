@@ -1,0 +1,437 @@
+.reservations-container {
+  width: 100%;
+}
+
+.reservations-container *{
+    color: black;
+}
+
+.reservations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.reservations-header h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.reservations-header p {
+  color: #777;
+  font-size: 14px;
+}
+
+.add-reservation-btn {
+  background: #7b4a24;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.reservation-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.reservation-filters {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-input,
+.filter-select,
+.search-input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.filter-input,
+.filter-select {
+  min-width: 160px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+}
+
+.export-btn {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.reservation-table th,
+.reservation-table td {
+  text-align: left;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.reservation-table th {
+  font-weight: 600;
+  color: #555;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pending {
+  background: #fff4d8;
+  color: #d78a00;
+}
+
+.confirmed {
+  background: #e8f8ea;
+  color: #2d8a46;
+}
+
+.cancelled {
+  background: #ffe7e7;
+  color: #d63031;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.table-footer span {
+  color: #666;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  gap: 8px;
+}
+
+.pagination button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #7b4a24;
+  color: white;
+  border-color: #7b4a24;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+
+@media (max-width: 992px) {
+  .reservations-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-reservation-btn {
+    width: 100%;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .reservation-card {
+    padding: 15px;
+  }
+
+  .reservation-filters {
+    flex-direction: column;
+  }
+
+  .filter-input,
+  .filter-select,
+  .search-input,
+  .export-btn {
+    width: 100%;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .reservations-header h2 {
+    font-size: 22px;
+  }
+
+  .reservation-table th,
+  .reservation-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+
+/* =============================================================================================
+   MESSAGES PAGE
+================================================================================================ */
+
+.messages-container {
+  width: 100%;
+}
+
+.messages-container *{
+    color: black;
+}
+
+.messages-header {
+  margin-bottom: 20px;
+}
+
+.messages-header h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.messages-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.messages-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.message-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.message-select,
+.message-search {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.message-select {
+  min-width: 150px;
+}
+
+.message-search {
+  flex: 1;
+  min-width: 250px;
+}
+
+.mark-read-btn {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.message-table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+}
+
+.message-table th,
+.message-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.message-table th {
+  color: #555;
+  font-weight: 600;
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sender-info h4 {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.sender-info p {
+  font-size: 13px;
+  color: #777;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.avatar-orange {
+  background: #f8e2c8;
+  color: #8b5e34;
+}
+
+.avatar-blue {
+  background: #d8e9ff;
+  color: #2668b7;
+}
+
+.avatar-purple {
+  background: #e6dcff;
+  color: #6a43c0;
+}
+
+.avatar-green {
+  background: #dff5e5;
+  color: #2f8a4d;
+}
+
+.message-preview {
+  max-width: 350px;
+  color: #555;
+}
+
+.message-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.message-status.read {
+  background: #e7f7ea;
+  color: #2f8a4d;
+}
+
+.message-status.unread {
+  background: #fff2da;
+  color: #d27a00;
+}
+
+.message-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.message-actions button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .message-filters {
+    flex-direction: column;
+  }
+
+  .message-select,
+  .message-search,
+  .mark-read-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .messages-card {
+    padding: 15px;
+  }
+
+  .messages-header h2 {
+    font-size: 24px;
+  }
+}
+
+
+
+/* ======================================== */
+/* ACTION BUTTON LOADER */
+/* ======================================== */
+button div.action-loader{
+  width: 30px;
+  padding: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #7b4a24;
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
