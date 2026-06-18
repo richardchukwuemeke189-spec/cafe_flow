@@ -136,9 +136,9 @@ function Homepage(){
                     <h2>Made for Moments</h2>
 
                     <p>
-                        Whether it's your morning ritual or an afternoon unwind,
+                        Whether you're starting your day with a fresh brew or taking a well-deserved break,
                         <br />
-                        we've got the perfect setting for you.
+                        we offer the perfect place to relax and enjoy every moment.
                     </p>
 
                     <div className="moments-gallery">

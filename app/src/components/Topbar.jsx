@@ -257,31 +257,31 @@ function Topbar({ setSidebarOpen }) {
                 </div>
 
                 {notifications.length === 0 ? (
-                <p className="empty-notification">
-                    No new notifications
-                </p>
+                    <p className="empty-notification">
+                        No new notifications
+                    </p>
                 ) : (
-                notifications.slice(0, 10).map((item) => (
-                    <div
-                        key={`${item.type}-${item.id}`}
-                        className="notification-item"
-                        onClick={() =>
-                            handleNotificationClick(item)
-                        }
-                        >
-                        <strong>
-                            {item.type === "message" ? <div><i className="bi bi-envelope-open-fill"></i> <span>Message</span></div> : <div><i className="bi bi-envelope-open-fill"></i> <span>Reservation</span></div>}
-                        </strong>
+                    notifications.slice(0, 10).map((item) => (
+                        <div
+                            key={`${item.type}-${item.id}`}
+                            className="notification-item"
+                            onClick={() =>
+                                handleNotificationClick(item)
+                            }
+                            >
+                            <strong>
+                                {item.type === "message" ? <div><i className="bi bi-envelope-open-fill"></i> <span>Message</span></div> : <div><i className="bi bi-envelope-open-fill"></i> <span>Reservation</span></div>}
+                            </strong>
 
-                        <p>{item.text}</p>
+                            <p>{item.text}</p>
 
-                        <small>
-                            {formatTimeAgo(
-                            item.created_at
-                            )}
-                        </small>
-                    </div>
-                ))
+                            <small>
+                                {formatTimeAgo(
+                                item.created_at
+                                )}
+                            </small>
+                        </div>
+                    ))
                 )}
             </div>
         )}
