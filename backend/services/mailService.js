@@ -16,31 +16,23 @@
 
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import dns from "dns";
 
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // true for 465, false for 587
-  family: 4, // force IPv4 (important for Render)
-  
+  secure: false,
+
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 
-  tls: {
-      rejectUnauthorized: false,
-    },
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.log("SMTP Error:", error);
-  } else {
-    console.log("SMTP Server is ready");
-  }
+  lookup: (hostname, options, callback) => {
+    dns.lookup(hostname, { family: 4 }, callback);
+  },
 });
 
 export default transporter;
