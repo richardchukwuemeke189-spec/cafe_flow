@@ -24,11 +24,15 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for 587
   family: 4, // force IPv4 (important for Render)
-
+  
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+
+  tls: {
+      rejectUnauthorized: false,
+    },
 });
 
 transporter.verify((error, success) => {
