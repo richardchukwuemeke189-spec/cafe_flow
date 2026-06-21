@@ -218,7 +218,7 @@ const AdminLogin = () => {
                 : "Sign In"}
             </button>
 
-            <div className="divider">
+            {/* <div className="divider">
               <span> OR</span>
             </div>
 
@@ -228,7 +228,7 @@ const AdminLogin = () => {
             >
               <FaLock />
               Sign in with Security Key
-            </button>
+            </button> */}
           </form>
 
           <div className="copyright">
