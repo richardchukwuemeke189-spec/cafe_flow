@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import supabase from "../config/supabaseClient.js";
-import transporter from "../services/mailService.js";
+// import transporter from "../services/mailService.js";
+import resend from "../services/mailService.js";
 
 export const loginAdmin = async (req, res) => {
   try {
@@ -442,6 +443,84 @@ export const markAllMessagesRead =
 
 
 
+// export const updateReservationStatus = async (
+//   req,
+//   res
+// ) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+
+//     const { data, error } =
+//       await supabase
+//         .from("reservations")
+//         .update({ status })
+//         .eq("id", id)
+//         .select()
+//         .single();
+
+//     if (error) throw error;
+
+//     let emailSubject = "";
+//     let emailText = "";
+
+//     if (status === "Confirmed") {
+//       emailSubject =
+//         "Reservation Confirmed";
+
+//       emailText = `
+//         Hello ${data.name},
+
+//         Your reservation has been confirmed.
+
+//         Date: ${data.date}
+//         Time: ${data.time}
+//         Guests: ${data.party_size}
+
+//         We look forward to serving you.
+
+//         Thank you.
+//       `;
+//     }
+
+//     if (status === "Cancelled") {
+//       emailSubject =
+//         "Reservation Cancelled";
+
+//       emailText = `
+//         Hello ${data.name},
+
+//         Unfortunately, your reservation has been cancelled.
+
+//         If you would like to make another reservation, please contact us.
+
+//         Thank you.
+//       `;
+//     }
+
+//     await transporter.sendMail({
+//       from: process.env.EMAIL_USER,
+//       to: data.email,
+//       subject: emailSubject,
+//       text: emailText,
+//     });
+
+//     res.json({
+//       success: true,
+//       reservation: data,
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
 export const updateReservationStatus = async (
   req,
   res
@@ -449,6 +528,7 @@ export const updateReservationStatus = async (
   try {
     const { id } = req.params;
     const { status } = req.body;
+
 
     const { data, error } =
       await supabase
@@ -458,64 +538,146 @@ export const updateReservationStatus = async (
         .select()
         .single();
 
+
     if (error) throw error;
 
+
     let emailSubject = "";
-    let emailText = "";
+    let emailHTML = "";
+
 
     if (status === "Confirmed") {
-      emailSubject =
-        "Reservation Confirmed";
 
-      emailText = `
-        Hello ${data.name},
+      emailSubject = "☕ Reservation Confirmed";
 
-        Your reservation has been confirmed.
 
-        Date: ${data.date}
-        Time: ${data.time}
-        Guests: ${data.party_size}
+      emailHTML = `
+        <div style="font-family: Arial, sans-serif;">
 
-        We look forward to serving you.
+          <h2>
+            Reservation Confirmed 🎉
+          </h2>
 
-        Thank you.
+          <p>
+            Hello ${data.name},
+          </p>
+
+          <p>
+            Your reservation has been confirmed.
+          </p>
+
+          <p>
+            <strong>Date:</strong> ${data.date}
+          </p>
+
+          <p>
+            <strong>Time:</strong> ${data.time}
+          </p>
+
+          <p>
+            <strong>Guests:</strong> ${data.party_size}
+          </p>
+
+          <p>
+            We look forward to serving you.
+          </p>
+
+          <p>
+            CafeFlow
+          </p>
+
+        </div>
       `;
     }
+
+
 
     if (status === "Cancelled") {
-      emailSubject =
-        "Reservation Cancelled";
 
-      emailText = `
-        Hello ${data.name},
+      emailSubject = "☕ Reservation Cancelled";
 
-        Unfortunately, your reservation has been cancelled.
 
-        If you would like to make another reservation, please contact us.
+      emailHTML = `
+        <div style="font-family: Arial, sans-serif;">
 
-        Thank you.
+          <h2>
+            Reservation Update
+          </h2>
+
+          <p>
+            Hello ${data.name},
+          </p>
+
+          <p>
+            Unfortunately, your reservation has been cancelled.
+          </p>
+
+          <p>
+            Please feel free to make another reservation anytime.
+          </p>
+
+          <p>
+            CafeFlow
+          </p>
+
+        </div>
       `;
     }
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: data.email,
-      subject: emailSubject,
-      text: emailText,
-    });
+
+
+    // Send customer email in background
+    if (emailHTML) {
+
+      resend.emails
+        .send({
+
+          from:
+            "CafeFlow <onboarding@resend.dev>",
+
+          to:
+            data.email,
+
+          subject:
+            emailSubject,
+
+          html:
+            emailHTML,
+
+        })
+
+        .then(() =>
+          console.log(
+            "Customer status email sent"
+          )
+        )
+
+        .catch((err) =>
+          console.error(
+            "Customer status email failed:",
+            err
+          )
+        );
+    }
+
+
 
     res.json({
       success: true,
       reservation: data,
     });
 
+
   } catch (error) {
+
     console.error(error);
+
 
     res.status(500).json({
       success: false,
       message: error.message,
     });
+
   }
 };
 

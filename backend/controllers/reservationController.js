@@ -1,6 +1,6 @@
-import supabase from "../config/supabaseClient.js";
-import transporter from "../services/mailService.js";
-import { sendEmail } from "../utils/sendEmail.js";
+// import supabase from "../config/supabaseClient.js";
+// import transporter from "../services/mailService.js";
+// import { sendEmail } from "../utils/sendEmail.js";
 
 // export const createReservation = async (req, res) => {
 //   try {
@@ -14,7 +14,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 //       specialRequest,
 //     } = req.body;
 
-//     // Basic validation
+//     // Validation
 //     if (
 //       !name ||
 //       !email ||
@@ -29,7 +29,9 @@ import { sendEmail } from "../utils/sendEmail.js";
 //       });
 //     }
 
-//     // Save to Supabase
+//     console.log("Reservation request received");
+
+//     // Save to Supabase first
 //     const { data, error } = await supabase
 //       .from("reservations")
 //       .insert([
@@ -41,7 +43,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 //           time,
 //           party_size: partySize,
 //           special_request: specialRequest || "",
-//           status: "pending",
+//           status: "Pending",
 //         },
 //       ])
 //       .select();
@@ -58,46 +60,50 @@ import { sendEmail } from "../utils/sendEmail.js";
 //       });
 //     }
 
-//     // Send Email Notification
-//     await transporter.sendMail({
-//       from: process.env.EMAIL_USER,
-//       to: process.env.RECEIVER_EMAIL,
-//       subject: "☕ New Reservation Request",
+//     console.log("Reservation saved");
 
-//       html: `
-//         <div style="font-family: Arial, sans-serif;">
-//           <h2>New Reservation Request</h2>
-
-//           <p><strong>Name:</strong> ${name}</p>
-
-//           <p><strong>Email:</strong> ${email}</p>
-
-//           <p><strong>Phone:</strong> ${phone}</p>
-
-//           <p><strong>Date:</strong> ${date}</p>
-
-//           <p><strong>Time:</strong> ${time}</p>
-
-//           <p><strong>Party Size:</strong> ${partySize}</p>
-
-//           <p><strong>Special Request:</strong> ${
-//             specialRequest || "None"
-//           }</p>
-
-//           <hr />
-
-//           <p>
-//             This reservation has been saved to the database.
-//           </p>
-//         </div>
-//       `,
-//     });
-
-//     return res.status(201).json({
+//     // Return success immediately
+//     res.status(201).json({
 //       success: true,
 //       message: "Reservation submitted successfully",
 //       reservation: data[0],
 //     });
+
+//     // Send admin email in background
+//     transporter
+//       .sendMail({
+//         from: process.env.EMAIL_USER,
+//         to: process.env.RECEIVER_EMAIL,
+//         subject: "☕ New Reservation Request",
+//         html: `
+//           <div style="font-family: Arial, sans-serif;">
+//             <h2>New Reservation Request</h2>
+
+//             <p><strong>Name:</strong> ${name}</p>
+//             <p><strong>Email:</strong> ${email}</p>
+//             <p><strong>Phone:</strong> ${phone}</p>
+//             <p><strong>Date:</strong> ${date}</p>
+//             <p><strong>Time:</strong> ${time}</p>
+//             <p><strong>Party Size:</strong> ${partySize}</p>
+
+//             <p>
+//               <strong>Special Request:</strong>
+//               ${specialRequest || "None"}
+//             </p>
+//           </div>
+//         `,
+//       })
+//       .then(() =>
+//         console.log(
+//           "Admin reservation email sent"
+//         )
+//       )
+//       .catch((err) =>
+//         console.error(
+//           "Admin reservation email failed:",
+//           err
+//         )
+//       );
 
 //   } catch (error) {
 //     console.error(
@@ -112,23 +118,28 @@ import { sendEmail } from "../utils/sendEmail.js";
 //   }
 // };
 
-// ===================update and reply to user=================
+
 // export const updateReservationStatus = async (req, res) => {
 //   const { id } = req.params;
 //   const { status } = req.body;
 
 //   try {
-//     // 1. Update reservation
-//     const { data: reservation, error } = await supabase
-//       .from("reservations")
-//       .update({ status })
-//       .eq("id", id)
-//       .select()
-//       .single();
+//     const { data: reservation, error } =
+//       await supabase
+//         .from("reservations")
+//         .update({ status })
+//         .eq("id", id)
+//         .select()
+//         .single();
 
 //     if (error) throw error;
 
-//     // 2. Decide message
+//     // Return immediately
+//     res.json({
+//       success: true,
+//       reservation,
+//     });
+
 //     let emailText = "";
 
 //     if (status === "Confirmed") {
@@ -136,37 +147,63 @@ import { sendEmail } from "../utils/sendEmail.js";
 
 // Good news 🎉
 
-// Your reservation has been ACCEPTED.
+// Your reservation has been confirmed.
 
-// We look forward to serving you at our café.
+// Date: ${reservation.date}
+// Time: ${reservation.time}
 
-// Thank you for choosing us.`;
+// We look forward to serving you.
+
+// CafeFlow`;
 //     }
 
 //     if (status === "Cancelled") {
 //       emailText = `Hello ${reservation.name},
 
-// We are sorry 😔
+// We regret to inform you that your reservation has been cancelled.
 
-// Your reservation has been CANCELLED.
+// Please feel free to make another reservation anytime.
 
-// Please feel free to book again anytime.`;
+// CafeFlow`;
 //     }
 
-//     // 3. Send email
-//     await sendEmail({
-//       to: reservation.email,
-//       subject: "Reservation Update",
-//       text: emailText,
-//     });
+//     if (emailText) {
+//       sendEmail({
+//         to: reservation.email,
+//         subject: "Reservation Update",
+//         text: emailText,
+//       })
+//         .then(() =>
+//           console.log(
+//             "Customer status email sent"
+//           )
+//         )
+//         .catch((err) =>
+//           console.error(
+//             "Customer status email failed:",
+//             err
+//           )
+//         );
+//     }
 
-//     return res.json({ success: true, reservation });
 //   } catch (err) {
 //     console.error(err);
-//     return res.status(500).json({ error: "Failed to update reservation" });
+
+//     return res.status(500).json({
+//       error:
+//         "Failed to update reservation",
+//     });
 //   }
 // };
 
+
+import supabase from "../config/supabaseClient.js";
+import resend from "../services/mailService.js";
+
+
+// ===============================
+// CREATE RESERVATION
+// ===============================
 
 export const createReservation = async (req, res) => {
   try {
@@ -179,6 +216,7 @@ export const createReservation = async (req, res) => {
       partySize,
       specialRequest,
     } = req.body;
+
 
     // Validation
     if (
@@ -195,9 +233,11 @@ export const createReservation = async (req, res) => {
       });
     }
 
+
     console.log("Reservation request received");
 
-    // Save to Supabase first
+
+    // Save reservation
     const { data, error } = await supabase
       .from("reservations")
       .insert([
@@ -214,6 +254,7 @@ export const createReservation = async (req, res) => {
       ])
       .select();
 
+
     if (error) {
       console.error(
         "Supabase Reservation Error:",
@@ -226,70 +267,125 @@ export const createReservation = async (req, res) => {
       });
     }
 
+
     console.log("Reservation saved");
 
-    // Return success immediately
+
+    // Respond immediately
     res.status(201).json({
       success: true,
       message: "Reservation submitted successfully",
       reservation: data[0],
     });
 
+
+
     // Send admin email in background
-    transporter
-      .sendMail({
-        from: process.env.EMAIL_USER,
+    resend.emails
+      .send({
+
+        from: "CafeFlow <onboarding@resend.dev>",
+
         to: process.env.RECEIVER_EMAIL,
+
         subject: "☕ New Reservation Request",
+
         html: `
           <div style="font-family: Arial, sans-serif;">
-            <h2>New Reservation Request</h2>
 
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Date:</strong> ${date}</p>
-            <p><strong>Time:</strong> ${time}</p>
-            <p><strong>Party Size:</strong> ${partySize}</p>
+            <h2>
+              New Reservation Request
+            </h2>
+
+
+            <p>
+              <strong>Name:</strong> ${name}
+            </p>
+
+
+            <p>
+              <strong>Email:</strong> ${email}
+            </p>
+
+
+            <p>
+              <strong>Phone:</strong> ${phone}
+            </p>
+
+
+            <p>
+              <strong>Date:</strong> ${date}
+            </p>
+
+
+            <p>
+              <strong>Time:</strong> ${time}
+            </p>
+
+
+            <p>
+              <strong>Party Size:</strong> ${partySize}
+            </p>
+
 
             <p>
               <strong>Special Request:</strong>
               ${specialRequest || "None"}
             </p>
+
+
           </div>
         `,
       })
-      .then(() =>
+
+      .then(() => {
         console.log(
           "Admin reservation email sent"
-        )
-      )
-      .catch((err) =>
+        );
+      })
+
+      .catch((err) => {
         console.error(
           "Admin reservation email failed:",
           err
-        )
-      );
+        );
+      });
+
 
   } catch (error) {
+
     console.error(
       "Reservation Controller Error:",
       error
     );
 
+
     return res.status(500).json({
       success: false,
       message: "Reservation failed",
     });
+
   }
 };
 
 
-export const updateReservationStatus = async (req, res) => {
+
+
+// ===============================
+// UPDATE RESERVATION STATUS
+// ===============================
+
+export const updateReservationStatus = async (
+  req,
+  res
+) => {
+
   const { id } = req.params;
   const { status } = req.body;
 
+
   try {
+
     const { data: reservation, error } =
       await supabase
         .from("reservations")
@@ -298,66 +394,175 @@ export const updateReservationStatus = async (req, res) => {
         .select()
         .single();
 
+
+
     if (error) throw error;
 
-    // Return immediately
+
+
+    // Respond immediately
     res.json({
       success: true,
       reservation,
     });
 
-    let emailText = "";
+
+
+    let emailSubject = "";
+    let emailHTML = "";
+
+
 
     if (status === "Confirmed") {
-      emailText = `Hello ${reservation.name},
 
-Good news 🎉
+      emailSubject =
+        "☕ Reservation Confirmed";
 
-Your reservation has been confirmed.
 
-Date: ${reservation.date}
-Time: ${reservation.time}
+      emailHTML = `
 
-We look forward to serving you.
+        <div style="font-family: Arial, sans-serif;">
 
-CafeFlow`;
+          <h2>
+            Reservation Confirmed 🎉
+          </h2>
+
+
+          <p>
+            Hello ${reservation.name},
+          </p>
+
+
+          <p>
+            Your reservation has been confirmed.
+          </p>
+
+
+          <p>
+            <strong>Date:</strong>
+            ${reservation.date}
+          </p>
+
+
+          <p>
+            <strong>Time:</strong>
+            ${reservation.time}
+          </p>
+
+
+          <p>
+            We look forward to serving you.
+          </p>
+
+
+          <p>
+            CafeFlow
+          </p>
+
+        </div>
+
+      `;
     }
+
+
 
     if (status === "Cancelled") {
-      emailText = `Hello ${reservation.name},
 
-We regret to inform you that your reservation has been cancelled.
+      emailSubject =
+        "☕ Reservation Cancelled";
 
-Please feel free to make another reservation anytime.
 
-CafeFlow`;
+      emailHTML = `
+
+        <div style="font-family: Arial, sans-serif;">
+
+          <h2>
+            Reservation Update
+          </h2>
+
+
+          <p>
+            Hello ${reservation.name},
+          </p>
+
+
+          <p>
+            We regret to inform you that your reservation has been cancelled.
+          </p>
+
+
+          <p>
+            Please feel free to make another reservation anytime.
+          </p>
+
+
+          <p>
+            CafeFlow
+          </p>
+
+        </div>
+
+      `;
     }
 
-    if (emailText) {
-      sendEmail({
-        to: reservation.email,
-        subject: "Reservation Update",
-        text: emailText,
-      })
-        .then(() =>
+
+
+    if (emailHTML) {
+
+      resend.emails
+        .send({
+
+          from:
+            "CafeFlow <onboarding@resend.dev>",
+
+          to:
+            reservation.email,
+
+          subject:
+            emailSubject,
+
+          html:
+            emailHTML,
+
+        })
+
+        .then(() => {
+
           console.log(
             "Customer status email sent"
-          )
-        )
-        .catch((err) =>
+          );
+
+        })
+
+        .catch((err) => {
+
           console.error(
             "Customer status email failed:",
             err
-          )
-        );
+          );
+
+        });
+
     }
 
+
+
   } catch (err) {
-    console.error(err);
+
+    console.error(
+      "Update Reservation Error:",
+      err
+    );
+
 
     return res.status(500).json({
-      error:
+
+      success: false,
+
+      message:
         "Failed to update reservation",
+
     });
+
   }
 };

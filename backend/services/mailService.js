@@ -14,25 +14,14 @@
 
 // export default transporter;
 
-import nodemailer from "nodemailer";
+// export default transporter;
+
+
+import { Resend } from "resend";
 import dotenv from "dotenv";
-import dns from "dns";
 
 dotenv.config();
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-
-  lookup: (hostname, options, callback) => {
-    dns.lookup(hostname, { family: 4 }, callback);
-  },
-});
-
-export default transporter;
+export default resend;

@@ -1,5 +1,6 @@
 // import supabase from "../config/supabaseClient.js";
-// import transporter from "../services/mailService.js";
+// // import transporter from "../services/mailService.js";
+// import resend from "../services/mailService.js";
 
 // export const sendContactMessage = async (req, res) => {
 //   try {
@@ -23,7 +24,9 @@
 //       });
 //     }
 
-//     // Save to Supabase
+//     console.log("Contact request received");
+
+//     // Save to database first
 //     const { data, error } = await supabase
 //       .from("contacts")
 //       .insert([
@@ -48,42 +51,54 @@
 //       });
 //     }
 
-//     // Send Email Notification
-//     await transporter.sendMail({
-//       from: process.env.EMAIL_USER,
+//     console.log("Message saved to database");
 
-//       to: process.env.RECEIVER_EMAIL,
-
-//       subject: `☕ New Contact Message - ${subject}`,
-
-//       html: `
-//         <div style="font-family: Arial, sans-serif;">
-//           <h2>New Contact Message</h2>
-
-//           <p><strong>Name:</strong> ${name}</p>
-
-//           <p><strong>Email:</strong> ${email}</p>
-
-//           <p><strong>Subject:</strong> ${subject}</p>
-
-//           <p><strong>Message:</strong></p>
-
-//           <p>${message}</p>
-
-//           <hr />
-
-//           <p>
-//             This message has been saved to the database.
-//           </p>
-//         </div>
-//       `,
-//     });
-
-//     return res.status(201).json({
+//     // Respond immediately
+//     res.status(201).json({
 //       success: true,
 //       message: "Message sent successfully",
 //       contact: data[0],
 //     });
+
+//     // Send email in background
+//     transporter
+//       .sendMail({
+//         from: process.env.EMAIL_USER,
+//         to: process.env.RECEIVER_EMAIL,
+//         subject: `☕ New Contact Message - ${subject}`,
+//         html: `
+//           <div style="font-family: Arial, sans-serif;">
+//             <h2>New Contact Message</h2>
+
+//             <p><strong>Name:</strong> ${name}</p>
+
+//             <p><strong>Email:</strong> ${email}</p>
+
+//             <p><strong>Subject:</strong> ${subject}</p>
+
+//             <p><strong>Message:</strong></p>
+
+//             <p>${message}</p>
+
+//             <hr />
+
+//             <p>
+//               This message has been saved to the database.
+//             </p>
+//           </div>
+//         `,
+//       })
+//       .then(() =>
+//         console.log(
+//           "Contact email sent successfully"
+//         )
+//       )
+//       .catch((err) =>
+//         console.error(
+//           "Contact email failed:",
+//           err
+//         )
+//       );
 
 //   } catch (error) {
 //     console.error(
@@ -100,7 +115,7 @@
 
 
 import supabase from "../config/supabaseClient.js";
-import transporter from "../services/mailService.js";
+import resend from "../services/mailService.js";
 
 export const sendContactMessage = async (req, res) => {
   try {
@@ -111,22 +126,20 @@ export const sendContactMessage = async (req, res) => {
       message,
     } = req.body;
 
+
     // Validation
-    if (
-      !name ||
-      !email ||
-      !subject ||
-      !message
-    ) {
+    if (!name || !email || !subject || !message) {
       return res.status(400).json({
         success: false,
         message: "Please fill all fields",
       });
     }
 
+
     console.log("Contact request received");
 
-    // Save to database first
+
+    // Save message to database
     const { data, error } = await supabase
       .from("contacts")
       .insert([
@@ -138,6 +151,7 @@ export const sendContactMessage = async (req, res) => {
         },
       ])
       .select();
+
 
     if (error) {
       console.error(
@@ -151,7 +165,9 @@ export const sendContactMessage = async (req, res) => {
       });
     }
 
+
     console.log("Message saved to database");
+
 
     // Respond immediately
     res.status(201).json({
@@ -160,55 +176,85 @@ export const sendContactMessage = async (req, res) => {
       contact: data[0],
     });
 
-    // Send email in background
-    transporter
-      .sendMail({
-        from: process.env.EMAIL_USER,
+
+    // Send email using Resend
+    resend.emails
+      .send({
+        from: "CafeFlow <onboarding@resend.dev>",
         to: process.env.RECEIVER_EMAIL,
+
         subject: `☕ New Contact Message - ${subject}`,
+
         html: `
           <div style="font-family: Arial, sans-serif;">
-            <h2>New Contact Message</h2>
 
-            <p><strong>Name:</strong> ${name}</p>
+            <h2>
+              New Contact Message
+            </h2>
 
-            <p><strong>Email:</strong> ${email}</p>
 
-            <p><strong>Subject:</strong> ${subject}</p>
+            <p>
+              <strong>Name:</strong> ${name}
+            </p>
 
-            <p><strong>Message:</strong></p>
 
-            <p>${message}</p>
+            <p>
+              <strong>Email:</strong> ${email}
+            </p>
+
+
+            <p>
+              <strong>Subject:</strong> ${subject}
+            </p>
+
+
+            <p>
+              <strong>Message:</strong>
+            </p>
+
+
+            <p>
+              ${message}
+            </p>
+
 
             <hr />
+
 
             <p>
               This message has been saved to the database.
             </p>
+
           </div>
         `,
       })
-      .then(() =>
+
+      .then(() => {
         console.log(
           "Contact email sent successfully"
-        )
-      )
-      .catch((err) =>
+        );
+      })
+
+      .catch((err) => {
         console.error(
           "Contact email failed:",
           err
-        )
-      );
+        );
+      });
+
 
   } catch (error) {
+
     console.error(
       "Contact Controller Error:",
       error
     );
 
+
     return res.status(500).json({
       success: false,
       message: "Failed to send message",
     });
+
   }
 };
